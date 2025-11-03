@@ -55,6 +55,7 @@ Pull Request в main/master
 ## Отчетность
 
 ### 📊 Allure Report
+[Ссылка на отчёт](https://olgamoiseeva1996.github.io/QA-GURU-PW-DIPLOM/)
 ![Allure Report](https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/raw/main/media/screenshots/ReportAllure.png)
 
 **Включает:**
@@ -68,6 +69,7 @@ Pull Request в main/master
 Логи выполнения
 
 ### 🔧 Allure TestOps
+[Ссылка на проект](https://allure.autotests.cloud/launch/49314)
 ![Allure TestOps](https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/raw/main/media/screenshots/TestOps.png)
 
 ## Уведомления
