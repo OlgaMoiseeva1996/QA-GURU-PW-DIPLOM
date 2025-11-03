@@ -1,15 +1,81 @@
-echo "# QA Guru Diplom Project
+# 🎯 Дипломная работа QA.GURU | JS + Playwright | Автоматизация тестирования 4 поток
 
-Проект для дипломной работы QA Guru
+Содержание
+Описание
 
-## Установка
+Технологический стек
+
+Запуск тестов
+
+CI/CD и отчетность
+
+Примеры отчетов
+
+Уведомления
+
+Описание
+Дипломный проект, выполненный в рамках курса по автоматизации тестирования на JavaScript + Playwright. Проект включает UI и API тесты с интеграцией в CI/CD pipeline.
+
+Объекты тестирования:
+
+realworld.qa.guru - веб-приложение для практики UI тестирования
+
+apichallenges.eviltester.com - RESTful API для отработки навыков API тестирования
+
+Технологический стек
+https://img.shields.io/badge/-JavaScript-%2523F7DF1E?logo=javascript&logoColor=black
+https://img.shields.io/badge/-Playwright-%252345ba4b?logo=playwright&logoColor=white
+https://img.shields.io/badge/-Faker-%252300AFF0?logo=faker&logoColor=white
+https://img.shields.io/badge/-GitHub_Actions-%25232088FF?logo=github-actions&logoColor=white
+https://img.shields.io/badge/-Allure-%2523FF6A00?logo=allure&logoColor=white
+https://img.shields.io/badge/-Allure_TestOps-%252316A085?logo=allure&logoColor=white
+https://img.shields.io/badge/-Telegram-%252326A5E4?logo=telegram&logoColor=white
+
+Запуск тестов
+Локальный запуск
+bash
+# Клонирование репозитория
+git clone https://github.com/olgamoiseeva1996/QA-GURU-PW-DIPLOM.git
+cd QA-GURU-PW-DIPLOM
+
+# Установка зависимостей
 npm install
 
-## Запуск тестов
-npm test
+# Установка браузеров
+npx playwright install --with-deps
 
-## Запуск в UI режиме
-npm run ui
+# Запуск тестов
+npm run test
 
-## Генерация отчетов
-npm run report" > README.md
+# Генерация отчета
+npx allure generate allure-results -o allure-report --clean
+npx allure open allure-report
+Запуск в CI/CD
+Push в main/master ветки
+
+Pull Request в main/master
+
+Ручной запуск через GitHub Actions
+
+CI/CD и отчетность
+📊 Allure Report
+https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/blob/main/media/screenshots/ReportAllure.png
+
+Включает:
+
+Детальную статистику тестов
+
+Историю запусков
+
+Скриншоты и видео падающих тестов
+
+Логи выполнения
+
+🔧 Allure TestOps
+https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/blob/main/media/screenshots/TestOps.png
+
+Уведомления
+📱 Telegram
+После каждого запуска тестов приходит уведомление с результатами:
+
+https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/blob/main/media/screenshots/Telegram.notification.png
