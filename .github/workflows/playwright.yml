@@ -23,7 +23,15 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
 
-      # сохраняем отчет allure
+       # Сохраняем отчет PW  
+      - uses: actions/upload-artifact@v4
+        if: always()
+        continue-on-error: true
+        with:
+          name: test-results
+          path: test-results
+          retention-days: 20
+      # Сохраняем результаты Allure 
       - uses: actions/upload-artifact@v4
         if: always()
         continue-on-error: true
@@ -31,34 +39,31 @@ jobs:
           name: allure-results
           path: allure-results
           retention-days: 20
-
-      # забираем результаты предыдущего запуска отчета allure
+      # Забираем результаты предыдущего запуска  
       - uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
           ref: gh-pages
           path: gh-pages
-          submodules: false
-
-      - name: Generate Allure Report
+      # Формируем из allure-results отчёт allure-report
+      - uses: simple-elf/allure-report-action@master
         if: always()
-        uses: simple-elf/allure-report-action@master
         id: allure-report
         with:
           allure_results: allure-results
+          gh_pages: gh-pages
           allure_report: allure-report
           allure_history: allure-history
           keep_reports: 20
-
-        # Формируем из allure-results отчет allure-report
-      - name: Deploy report to GitHub Pages
+      # Деплоим отчёт
+      - name: deploy report
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-report
           publish_branch: gh-pages
+          publish_dir: allure-history
 
       - name: Install allurectl
         run: |
