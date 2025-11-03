@@ -116,7 +116,7 @@ jobs:
           🧪 [Allure TestOps](https://allure.autotests.cloud/project/4983)%0A\
           📦 [Артефакты](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})%0A\
           ━━━━━━━━━━━━━━━━━%0A\
-          🏷️ *Run #${{ github.run_number }}*%0A\"
+          🏷️ *Run #${{ github.run_number }}*"
 
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
