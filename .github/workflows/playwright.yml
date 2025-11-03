@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main, master ]
 permissions:
-  contents: write
+  contents: write  # Нужно для деплоя в gh-pages
 jobs:
   test:
     timeout-minutes: 60
@@ -32,9 +32,8 @@ jobs:
           path: allure-results
           retention-days: 20
 
-      # забираем историю из предыдущего отчета
-      - name: Get Allure history
-        uses: actions/checkout@v4
+      # забираем результаты предыдущего запуска отчета allure
+      - uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
@@ -42,17 +41,17 @@ jobs:
           path: gh-pages
           submodules: false
 
-      # Генерируем отчет с историей
-      - name: Build Allure Report
-        uses: simple-elf/allure-report-action@master
+      - name: Generate Allure Report
         if: always()
+        uses: simple-elf/allure-report-action@master
+        id: allure-report
         with:
           allure_results: allure-results
           allure_report: allure-report
-          gh_pages: gh-pages           # ← передаем историю
+          allure_history: allure-history
           keep_reports: 20
 
-      # Деплоим отчет
+        # Формируем из allure-results отчет allure-report
       - name: Deploy report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
@@ -96,6 +95,7 @@ jobs:
         if: always()
         run: |
           STATUS=${{ job.status }}
+          # Эмодзи в зависимости от статуса
           if [ "$STATUS" = "success" ]; then
             EMOJI="🎉"
             STATUS_TEXT="УСПЕХ"
