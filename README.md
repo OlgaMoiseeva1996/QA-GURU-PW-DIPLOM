@@ -44,3 +44,35 @@ npm run test
 # Генерация отчета
 npx allure generate allure-results -o allure-report --clean
 npx allure open allure-report
+
+### Запуск в CI/CD
+- **Push** в main/master ветки
+- **Pull Request** в main/master  
+- **Ручной запуск** через GitHub Actions
+
+## CI/CD и отчетность
+
+### 📊 Allure Report
+[![Allure Report](https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/raw/main/media/screenshots/ReportAllure.png)](https://olgamoiseeva1996.github.io/QA-GURU-PW-DIPLOM/)
+
+**Включает:**
+- Детальную статистику тестов
+- Историю запусков 
+- Скриншоты и видео падающих тестов
+- Логи выполнения
+
+### 🔧 Allure TestOps
+[![Allure TestOps](https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/raw/main/media/screenshots/TestOps.png)](https://allure.autotests.cloud/project/4983)
+
+## Уведомления
+
+### 📱 Telegram
+После каждого запуска тестов приходит уведомление с результатами:
+
+![Telegram Уведомления](https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/raw/main/media/screenshots/Telegram.notification.png)
+
+---
+
+## 👥 Автор
+**Ольга Моисеева**
+- GitHub: [OlgaMoiseeva1996](https://github.com/OlgaMoiseeva1996)
