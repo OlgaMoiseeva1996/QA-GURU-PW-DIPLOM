@@ -1,0 +1,23 @@
+{
+  "name": "qa-guru-diplom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "ui": "npx playwright test --ui",
+    "reportAwesome": "npx allure awesome ./allure-results --single-file",
+    "reportClassic": "npx allure classic ./allure-results --single-file",
+    "report": "allure generate ./allure-results -o ./allure-report && allure open ./allure-report"
+  },
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.2",
+    "allure-playwright": "^3.2.1"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.7.0",
+    "allure": "^3.0.0-beta.10"
+  }
+}

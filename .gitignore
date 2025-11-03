@@ -1,0 +1,9 @@
+node_modules
+echo "node_modules/
+allure-results/
+allure-report/
+test-results/
+playwright-report/
+allure/history.jsonl
+.env" > .gitignore
+.allure/
