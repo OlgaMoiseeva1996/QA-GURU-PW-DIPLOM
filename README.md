@@ -47,9 +47,7 @@ npx allure open allure-report
 ```
 ### Запуск в CI/CD
 Push в main/master ветки
-
 Pull Request в main/master
-
 Ручной запуск через GitHub Actions
 
 ## CI/CD и отчетность
@@ -60,11 +58,8 @@ Pull Request в main/master
 **Включает:**
 
 Детальную статистику тестов
-
-Историю запусков (Trend)
-
+Историю запусков 
 Скриншоты и видео падающих тестов
-
 Логи выполнения
 
 ### 🔧 Allure TestOps
@@ -76,7 +71,3 @@ Pull Request в main/master
 После каждого запуска тестов приходит уведомление с результатами:
 
 <img src="https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/raw/main/media/screenshots/Telegram.notification.png" width="400" />
-## 👥 Автор
-**Ольга Моисеева**
-
-GitHub: OlgaMoiseeva1996
