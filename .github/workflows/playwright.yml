@@ -39,6 +39,7 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
+          submodules: false
 
       - name: Generate Allure Report
         if: always()
