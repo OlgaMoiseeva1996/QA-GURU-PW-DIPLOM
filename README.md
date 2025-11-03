@@ -52,7 +52,7 @@ Pull Request в main/master
 
 Ручной запуск через GitHub Actions
 
-## CI/CD и отчетность
+## Отчетность
 
 ### 📊 Allure Report
 ![Allure Report](https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/raw/main/media/screenshots/ReportAllure.png)
