@@ -65,7 +65,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-history
+          publish_dir: allure-report
           publish_branch: gh-pages
 
       - name: Install allurectl
@@ -109,7 +109,8 @@ jobs:
           ✅ Успешные: *$PASSED*%0A\
           🛑 Провалено: *$FAILED*%0A\
           ⚠️ Пропущено: *$SKIPPED*%0A\
-          ⛓️ [Allure отчет](https://olgamoiseeva1996.github.io/qa-guruDiplom/)"
+          ⛓️ [Allure отчет](https://olgamoiseeva1996.github.io/QA-GURU-PW-DIPLOM/)"
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
           -d parse_mode=Markdown \
+          -d text="$MESSAGE"
