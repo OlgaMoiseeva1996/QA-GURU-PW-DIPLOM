@@ -44,7 +44,7 @@ npm run test
 # Генерация отчета
 npx allure generate allure-results -o allure-report --clean
 npx allure open allure-report
-
+```
 ### Запуск в CI/CD
 Push в main/master ветки
 
