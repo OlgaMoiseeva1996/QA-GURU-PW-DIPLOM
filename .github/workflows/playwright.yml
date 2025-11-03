@@ -1,29 +1,34 @@
-name: QA.GURU diploma test
+# Называем workflow
+name: pw tests
+# Когда мы запускаем автотесты
 on:
-  workflow_dispatch:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-permissions:
-  contents: write  # Нужно для деплоя в gh-pages
+ # ручной запуск   
+  workflow_dispatch:
+# jobs
 jobs:
-  test:
-    timeout-minutes: 60
+  e2eTests:
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
+      # делаем чекаут
       - uses: actions/checkout@v4
+      # устанавливаем node.js
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - name: Install dependencies
-        run: npm ci
-      - name: Install Playwright Browsers
+      # устанавливаем пакеты node
+      - name: Установить пакеты
+        run: npm i
+      # устанавливаем PW
+      - name: Установить PW
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: npx playwright test
-
-       # Сохраняем отчет PW  
+      - name: Запустить PW
+        run: npm run test
+      # Сохраняем отчет PW  
       - uses: actions/upload-artifact@v4
         if: always()
         continue-on-error: true
@@ -79,7 +84,7 @@ jobs:
             --project-id 4983 \
             --token ${{ secrets.ALLURE_TOKEN }} \
             --launch-name "GitHub Run #${{ github.run_number }}"
-      
+
       - name: Parse Allure summary
         id: parse_summary
         if: always()
@@ -95,12 +100,11 @@ jobs:
             echo "SKIPPED=$SKIPPED" >> $GITHUB_ENV
             echo "TOTAL=$TOTAL" >> $GITHUB_ENV
           fi
-      
+
       - name: Notify Telegram
         if: always()
         run: |
           STATUS=${{ job.status }}
-          # Эмодзи в зависимости от статуса
           if [ "$STATUS" = "success" ]; then
             EMOJI="🎉"
             STATUS_TEXT="УСПЕХ"

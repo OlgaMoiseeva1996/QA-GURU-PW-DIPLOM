@@ -23,12 +23,14 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['line'], ['allure-playwright', {
-      detail: true,
-      resultsDir: "allure-results",
-      suiteTitle: false
-    }]
-  ],
+  reporter: [
+  ['html'], 
+  ['allure-playwright', {
+    detail: true,
+    resultsDir: "allure-results",
+    suiteTitle: false
+  }]
+],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
