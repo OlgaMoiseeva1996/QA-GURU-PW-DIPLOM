@@ -75,11 +75,8 @@ Pull Request в main/master
 ### 📱 Telegram
 После каждого запуска тестов приходит уведомление с результатами:
 
-![Telegram Уведомления](https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/raw/main/media/screenshots/Telegram.notification.png)
-
+<img src="https://github.com/OlgaMoiseeva1996/QA-GURU-PW-DIPLOM/raw/main/media/screenshots/Telegram.notification.png" width="400" />
 ## 👥 Автор
 **Ольга Моисеева**
-
-Telegram: @olgamoiseeva1996
 
 GitHub: OlgaMoiseeva1996
