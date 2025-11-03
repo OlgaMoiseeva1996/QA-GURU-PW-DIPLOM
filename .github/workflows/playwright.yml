@@ -50,13 +50,20 @@ jobs:
           allure_history: allure-history
           keep_reports: 20
 
+      - name: Combine report and history
+        if: always()
+        run: |
+          mkdir -p combined-report
+          cp -r allure-report/* combined-report/
+          cp -r allure-history combined-report/history/
+
         # Формируем из allure-results отчет allure-report
       - name: Deploy report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-report
+          publish_dir: combined-report
           publish_branch: gh-pages
 
       - name: Install allurectl
@@ -96,11 +103,11 @@ jobs:
           STATUS=${{ job.status }}
           # Эмодзи в зависимости от статуса
           if [ "$STATUS" = "success" ]; then
-          EMOJI="🎉"
-          STATUS_TEXT="УСПЕХ"
+            EMOJI="🎉"
+            STATUS_TEXT="УСПЕХ"
           else
-          EMOJI="🚨" 
-          STATUS_TEXT="НЕУДАЧА"
+            EMOJI="🚨" 
+            STATUS_TEXT="НЕУДАЧА"
           fi
     
           MESSAGE="$EMOJI *$STATUS_TEXT* $EMOJI%0A\
