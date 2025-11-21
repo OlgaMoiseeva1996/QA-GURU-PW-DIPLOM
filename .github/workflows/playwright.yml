@@ -22,7 +22,7 @@ jobs:
           node-version: lts/*
       # устанавливаем пакеты node
       - name: Установить пакеты
-        run: npm i
+        run: npm ci
       # устанавливаем PW
       - name: Установить PW
         run: npx playwright install --with-deps

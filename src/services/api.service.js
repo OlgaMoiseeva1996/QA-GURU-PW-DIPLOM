@@ -2,7 +2,7 @@ import { ChallengerService, ChallengesService, ToDos, ToDo } from "../services/i
 
 export class Api {
   constructor(request) {
-    this.requet = request;
+    this.request = request;
     this.challenger = new ChallengerService(request);
     this.challenges = new ChallengesService(request);
     this.todos = new ToDos(request);

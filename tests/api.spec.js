@@ -5,33 +5,42 @@ import { test } from "../src/fixtures/index";
 let token;
 test.describe("POST /challenger @api", () => {
   test.beforeAll(async ({ request }, testinfo) => {
+    // Получаем challenger token 
     let response = await request.post(`${testinfo.project.use.apiURL}/challenger`);
+
     const headers = response.headers();
     token = headers["x-challenger"];
   });
 
   test("02/GET /challenges (200) @api", async ({ api }, testinfo) => {
-  let result = await api.challenges.getChallenges(token, testinfo);
+    // Получаем список всех доступных сhallenges
+    let result = await api.challenges.getChallenges(token, testinfo);
   
-  expect(result.response.status()).toBe(200);
-  expect(result.headers["x-challenger"]).toBe(token);
-  expect(result.body.challenges.length).toBe(59);
+    expect(result.response.status()).toBe(200);
+    expect(result.headers["x-challenger"]).toBe(token);
+    expect(result.body.challenges.length).toBe(59);
 });
 
   test("03/GET /todos (200) @api", async ({ api }, testinfo) => {
+    // Получение todos
     let result = await api.todos.getTodos(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.todos.length).toBe(10);
   });
 
   test("04/GET /todo (404) not plural @api", async ({ api }, testinfo) => {
+    // Получение todo по неверному эндпоинту (правильно todos)
     let response = await api.todo.getTodoNotPlural(token, testinfo);
+
     expect(response.status()).toBe(404);
   });
 
   test("05/GET /todos/{id} (200) @api", async ({ api }, testinfo) => {
+    // Получение существующего todo
     let result = await api.todos.getTodosPositive(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.todos.length).toBe(1);
@@ -41,7 +50,9 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("06/GET /todos/{id} (404) @api", async ({ api }, testinfo) => {
+    // Получение несуществующего todo
     let result = await api.todos.getTodosIdNegative(token, testinfo);
+
     expect(result.response.status()).toBe(404);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.errorMessages[0]).toContain(
@@ -50,23 +61,30 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("07/GET /todos (200) ?filter @api", async ({ api }, testinfo) => {
+    // Получение todos отфильтрованного по doneStatus = false
     let result = await api.todos.getTodosFilter(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.todos[0].doneStatus).toBe(false);
   });
 
   test("08/HEAD /todos (200) @api", async ({ api }, testinfo) => {
+    // Получение заголовков для todos без получения тела ответа
     let result = await api.todos.headTodos(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
   });
 
   test("09/POST /todos (201) @api", async ({ api, }, testinfo) => {
+    // Создание нового todo с валидными данными
     const todo = new TodoBuilder()
         .todos()
         .generate();
+
     let result = await api.todos.postTodos(token, testinfo, todo);
+
     expect(result.response.status()).toBe(201);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.doneStatus).toEqual(todo.doneStatus);
@@ -75,10 +93,13 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("10/POST /todos (400) doneStatus @api", async ({ api, }, testinfo) => {
+    // Создание todo с невалидным doneStatus (не boolean)
     const todo = new TodoBuilder()
         .todosDoneStatus()
         .generate();
+
     let result = await api.todos.postTodosDoneStatus(token, testinfo, todo);
+
     expect(result.response.status()).toBe(400);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.errorMessages[0]).toContain(
@@ -87,10 +108,13 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("11/POST /todos (400) title too long @api", async ({ api, }, testinfo) => {
+    // Создание todo с слишком длинным title (51 символ)
     const todo = new TodoBuilder()
         .todosTitleTooLong()
         .generate();
+
     let result = await api.todos.postTodosTitleTooLong(token, testinfo, todo);
+
     expect(result.response.status()).toBe(400);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.errorMessages[0]).toContain(
@@ -99,10 +123,13 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("12/POST /todos (400) description too long @api", async ({ api, }, testinfo) => {
+    // Создание todo с слишком длинным description (201 символ)
     const todo = new TodoBuilder()
         .todosDescriptionTooLong()
         .generate();
+
     let result = await api.todos.postTodosDescriptionTooLong(token, testinfo, todo);
+
     expect(result.response.status()).toBe(400);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.errorMessages[0]).toContain(
@@ -111,10 +138,13 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("13/POST /todos (201) max out content @api", async ({ api, }, testinfo) => {
+    // Создание todo с максимально допустимыми значениями title (50 символов) и description (200 символов)
     const todo = new TodoBuilder()
         .todosMaxOutContent()
         .generate();
+
     let result = await api.todos.postTodosMaxOutContent(token, testinfo, todo);
+
     expect(result.response.status()).toBe(201);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.doneStatus).toEqual(todo.doneStatus);
@@ -123,10 +153,13 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("14/POST /todos (413) content too long @api", async ({ api, }, testinfo) => {
+    // Создание todo с превышением максимального размера тела запроса (5001 сивол в description)
     const todo = new TodoBuilder()
         .todosContentToolong()
         .generate();
+
     let result = await api.todos.postTodosContentToolong(token, testinfo, todo);
+
     expect(result.response.status()).toBe(413);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.errorMessages[0]).toContain(
@@ -135,20 +168,26 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("15/POST /todos (400) extra @api", async ({ api, }, testinfo) => {
+    // Создание todo с недопустимым полем (priority)
     const todo = new TodoBuilder()
         .todosExtra()
         .generate();
+
     let result = await api.todos.postTodosExtra(token, testinfo, todo);
+
     expect(result.response.status()).toBe(400);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.errorMessages[0]).toContain("Could not find field: priority");
   });
 
   test("16/PUT /todos/{id} (400) @api", async ({ api, }, testinfo) => {
+    // Создание todo c указанием id todo
     const todo = new TodoBuilder()
         .todosId()
         .generate();
+
     let result = await api.todos.putTodosId(token, testinfo, todo);
+
     expect(result.response.status()).toBe(400);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.errorMessages[0]).toContain(
@@ -157,20 +196,26 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("17/POST /todos/{id} (200) @api", async ({ api, }, testinfo) => {
+    // Частичное обновление существующего todo
     const todo = new TodoBuilder()
         .todosIdPositive()
         .generate();
+
     let result = await api.todos.postTodosIdPositive(token, testinfo, todo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.title).toBe(todo.title);
   });
 
   test("18/POST /todos/{id} (404) @api", async ({ api, }, testinfo) => {
+    // Обновление несуществующего todo
     const todo = new TodoBuilder()
         .todosIdNegative()
         .generate();
+
     let result = await api.todos.postTodosIdNegative(token, testinfo, todo);
+
     expect(result.response.status()).toBe(404);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.errorMessages[0]).toContain(
@@ -179,10 +224,13 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("19/PUT /todos/{id} full (200) @api", async ({ api, }, testinfo) => {
+    // Полное обновление todo через PUT 
     const todo = new TodoBuilder()
         .todosIdFull()
         .generate();
+
     let result = await api.todos.putTodosIdFull(token, testinfo, todo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.id).toBe(3);
@@ -192,10 +240,13 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("20/PUT /todos/{id} partial (200) @api", async ({ api, }, testinfo) => {
+    // Частичное обновление todo через PUT (только title)
     const todo = new TodoBuilder()
         .todosIdPartial()
         .generate();
+
     let result = await api.todos.putTodosIdFull(token, testinfo, todo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.id).toBe(3);
@@ -205,33 +256,43 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("21/PUT /todos/{id} no title (400) @api", async ({ api, }, testinfo) => {
+    // Обновление todo без обязательного поля title
     const todo = new TodoBuilder()
         .todosIdNoTitle()
         .generate();
+
     let result = await api.todos.putTodosIdNoTitle(token, testinfo, todo);
+
     expect(result.response.status()).toBe(400);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.errorMessages[0]).toContain("title : field is mandatory");
   });
 
   test("22/PUT /todos/{id} no amend id (400) @api", async ({ api, }, testinfo) => {
+    // Изменение id существующего todo 
     const todo = new TodoBuilder()
         .todosIdNoAmendId()
         .generate();
+
     let result = await api.todos.putTodosIdNoAmendId(token, testinfo, todo);
+
     expect(result.response.status()).toBe(400);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.body.errorMessages[0]).toContain("Can not amend id from 3 to 4");
   });
 
   test("23/DELETE /todos/{id} (200) @api", async ({ api, }, testinfo) => {
+    // Удаление todo
     let result = await api.todos.deleteTodosId(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
   });
 
   test("24/OPTIONS /todos (200) @api", async ({ api, }, testinfo) => {
+    // Проверка доступных HTTP методов для эндпоинта /todos
     let result = await api.todos.optionsTodos(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["allow"]).toContain("OPTIONS");
     expect(result.headers["allow"]).toContain("GET");
@@ -243,7 +304,9 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("25/GET /todos (200) XML @api", async ({ api, }, testinfo) => {
+    // Получение todos в XML формате
     let result = await api.todos.getTodosXml(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.headers["content-type"]).toContain("application/xml");
@@ -251,7 +314,9 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("26/GET /todos (200) JSON @api", async ({ api, }, testinfo) => {
+    // Получение todos в JSON формате
     let result = await api.todos.getTodosJson(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.headers["content-type"]).toContain("application/json");
@@ -259,7 +324,9 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("27/GET /todos (200) ANY @api", async ({ api, }, testinfo) => {
+    // Получение todos с заголовком Accept: */* и в JSON формате
     let result = await api.todos.getTodosAny(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.headers["content-type"]).toContain("application/json");
@@ -267,7 +334,9 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("28/GET /todos (200) XML pref @api", async ({ api, }, testinfo) => {
+    // Получение todos с предпочтением XML формате
     let result = await api.todos.getTodosXmlPref(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.headers["content-type"]).toContain("application/xml");
@@ -275,7 +344,9 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("29/GET /todos (200) no accept @api", async ({ api, }, testinfo) => {
+    // Получение todos без заголовка Accept и в JSON формате
     let result = await api.todos.getTodosNoAccept(token, testinfo);
+
     expect(result.response.status()).toBe(200);
     expect(result.headers["x-challenger"]).toBe(token);
     expect(result.headers["content-type"]).toContain("application/json");
@@ -283,8 +354,9 @@ test.describe("POST /challenger @api", () => {
   });
 
   test("30/GET /todos (406) @api", async ({ api, }, testinfo) => {
+    // Получение todos в неподдерживаемом формате
     let result = await api.todos.getTodos406(token, testinfo);
-    console.log(token);
+    
     expect(result.response.status()).toBe(406);
     expect(result.body.errorMessages).toContain("Unrecognised Accept Type");
   });

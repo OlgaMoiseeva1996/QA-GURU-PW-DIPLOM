@@ -24,17 +24,17 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-  ['html', { outputFolder: 'playwright-report' }],
-  ['allure-playwright', {
-    detail: true,
-    resultsDir: "allure-results",
-    suiteTitle: false
-  }]
-],
+    ['html', { outputFolder: 'playwright-report' }],
+    ['allure-playwright', {
+      detail: true,
+      resultsDir: "allure-results",
+      suiteTitle: false
+    }]
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
+    baseURL: 'https://realworld.qa.guru/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     screenshot: 'only-on-failure',
@@ -91,4 +91,3 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-
