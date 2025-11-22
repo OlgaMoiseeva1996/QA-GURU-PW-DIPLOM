@@ -1,4 +1,4 @@
-import { ArticlePage, LikePage, LogOutPage, MainPage, RegisterPage, TagsPage } from './index';
+import { ArticlePage, LikePage, LogOutPage, MainPage, RegisterPage, TagsPage, ProfilePage } from './index';
 
 export class App {
     constructor(page) {
@@ -9,5 +9,6 @@ export class App {
         this.main = new MainPage(page);
         this.tags = new TagsPage(page);
         this.register = new RegisterPage(page);
+        this.profile = new ProfilePage(page);
     }
 }

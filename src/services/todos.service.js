@@ -6,7 +6,7 @@ export class ToDos {
   }
 
   async getTodos(token, testinfo) {
-    return test.step("03/GET /todos (200)", async () => {
+    return test.step("3/GET /todos", async () => {
       const response = await this.request.get(`${testinfo.project.use.apiURL}/todos`, {
         headers: {
         "x-challenger": token,
@@ -19,7 +19,7 @@ export class ToDos {
   }
 
   async getTodosPositive(token, testinfo) {
-    return test.step("05/GET /todos/{id} (200)", async () => {
+    return test.step("5/GET /todos/{id}", async () => {
     const response = await this.request.get(`${testinfo.project.use.apiURL}/todos/5`, {
         headers: {
         "x-challenger": token,
@@ -32,7 +32,7 @@ export class ToDos {
   }
 
   async getTodosIdNegative(token, testinfo) {
-    return test.step("06/GET /todos/{id} (404)", async () => {
+    return test.step("6/GET /todos/{id}", async () => {
     const response = await this.request.get(`${testinfo.project.use.apiURL}/todos/15`, {
         headers: { 'X-CHALLENGER': token },
       });
@@ -43,7 +43,7 @@ export class ToDos {
   }
 
   async getTodosFilter(token, testinfo) {
-    return test.step("07/GET /todos (200) ?filter", async () => {
+    return test.step("7/GET /todos?filter", async () => {
     const response = await this.request.get(`${testinfo.project.use.apiURL}/todos?doneStatus=false`, {
         headers: { 'X-CHALLENGER': token },
       });
@@ -54,7 +54,7 @@ export class ToDos {
   }
 
   async headTodos(token, testinfo) {
-    return test.step("08/HEAD /todos (200)", async () => {
+    return test.step("8/HEAD /todos", async () => {
     const response = await this.request.head(`${testinfo.project.use.apiURL}/todos`, {
         headers: { 'X-CHALLENGER': token },
       });
@@ -64,7 +64,7 @@ export class ToDos {
   }
 
   async postTodos(token, testinfo, data) {
-    return test.step("09/POST /todos (201)", async () => {
+    return test.step("9/POST /todos", async () => {
     const response = await this.request.post(`${testinfo.project.use.apiURL}/todos`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -76,7 +76,7 @@ export class ToDos {
     });
   }
   async postTodosDoneStatus(token, testinfo, data) {
-    return test.step("10/POST /todos (400) doneStatus", async () => {
+    return test.step("10/POST /todos doneStatus", async () => {
     const response = await this.request.post(`${testinfo.project.use.apiURL}/todos`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -88,7 +88,7 @@ export class ToDos {
     });
   }
   async postTodosTitleTooLong(token, testinfo, data) {
-    return test.step("11/POST /todos (400) title too long", async () => {
+    return test.step("11/POST /todos title too long", async () => {
     const response = await this.request.post(`${testinfo.project.use.apiURL}/todos`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -101,7 +101,7 @@ export class ToDos {
   }
 
   async postTodosDescriptionTooLong(token, testinfo, data) {
-    return test.step("12/POST /todos (400) description too long", async () => {
+    return test.step("12/POST /todos description too long", async () => {
     const response = await this.request.post(`${testinfo.project.use.apiURL}/todos`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -114,7 +114,7 @@ export class ToDos {
   }
 
   async postTodosMaxOutContent(token, testinfo, data) {
-    return test.step("13/POST /todos (201) max out content", async () => {
+    return test.step("13/POST /todos max out content", async () => {
     const response = await this.request.post(`${testinfo.project.use.apiURL}/todos`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -127,7 +127,7 @@ export class ToDos {
   }
 
   async postTodosContentToolong(token, testinfo, data) {
-    return test.step("14/POST /todos (413) content too long", async () => {
+    return test.step("14/POST /todos content too long", async () => {
     const response = await this.request.post(`${testinfo.project.use.apiURL}/todos`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -140,7 +140,7 @@ export class ToDos {
   }
 
   async postTodosExtra(token, testinfo, data) {
-    return test.step("15/POST /todos (400) extra", async () => {
+    return test.step("15/POST /todos extra", async () => {
     const response = await this.request.post(`${testinfo.project.use.apiURL}/todos`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -153,7 +153,7 @@ export class ToDos {
   }
 
   async putTodosId(token, testinfo, data) {
-    return test.step("16/PUT /todos/{id} (400)", async () => {
+    return test.step("16/PUT /todos/{id}", async () => {
     const response = await this.request.put(`${testinfo.project.use.apiURL}/todos/300`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -166,7 +166,7 @@ export class ToDos {
   }
 
   async postTodosIdPositive(token, testinfo, data) {
-    return test.step("17/POST /todos/{id} (200)", async () => {
+    return test.step("17/POST /todos/{id}", async () => {
     const response = await this.request.post(`${testinfo.project.use.apiURL}/todos/5`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -178,7 +178,7 @@ export class ToDos {
     });
   }
   async postTodosIdNegative(token, testinfo, data) {
-    return test.step("18/POST /todos/{id} (404)", async () => {
+    return test.step("18/POST /todos/{id}", async () => {
     const response = await this.request.post(`${testinfo.project.use.apiURL}/todos/200`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -191,7 +191,7 @@ export class ToDos {
   }
 
   async putTodosIdFull(token, testinfo, data) {
-    return test.step("19/PUT /todos/{id} full (200)", async () => {
+    return test.step("19/PUT /todos/{id} full", async () => {
     const response = await this.request.put(`${testinfo.project.use.apiURL}/todos/3`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -204,7 +204,7 @@ export class ToDos {
   }
 
   async putTodosIdPartial(token, testinfo, data) {
-    return test.step("20/PUT /todos/{id} partial (200)", async () => {
+    return test.step("20/PUT /todos/{id} partial", async () => {
     const response = await this.request.put(`${testinfo.project.use.apiURL}/todos/3`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -217,7 +217,7 @@ export class ToDos {
   }
 
   async putTodosIdNoTitle(token, testinfo, data) {
-    return test.step("21/PUT /todos/{id} no title (400)", async () => {
+    return test.step("21/PUT /todos/{id} no title", async () => {
     const response = await this.request.put(`${testinfo.project.use.apiURL}/todos/3`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -230,7 +230,7 @@ export class ToDos {
   }
 
   async putTodosIdNoAmendId(token, testinfo, data) {
-    return test.step("22/PUT /todos/{id} no amend id (400)", async () => {
+    return test.step("22/PUT /todos/{id} no amend id", async () => {
     const response = await this.request.put(`${testinfo.project.use.apiURL}/todos/3`, {
         headers: { 'X-CHALLENGER': token },
         data: data 
@@ -243,7 +243,7 @@ export class ToDos {
   }
 
   async deleteTodosId(token, testinfo) {
-    return test.step("23/DELETE /todos/{id} (200)", async () => {
+    return test.step("23/DELETE /todos/{id}", async () => {
     const response = await this.request.delete(`${testinfo.project.use.apiURL}/todos/1`, {
         headers: { 'X-CHALLENGER': token },
       });
@@ -254,7 +254,7 @@ export class ToDos {
   }
 
   async optionsTodos(token, testinfo) {
-    return test.step("24/OPTIONS /todos (200)", async () => {
+    return test.step("24/OPTIONS /todos", async () => {
     const response = await this.request.fetch(`${testinfo.project.use.apiURL}/todos`, {
         headers: { 'X-CHALLENGER': token },
         method: "OPTIONS",
@@ -266,7 +266,7 @@ export class ToDos {
   }
 
   async getTodosXml(token, testinfo) {
-    return test.step("25/GET /todos (200) XML", async () => {
+    return test.step("25/GET /todos XML", async () => {
     const response = await this.request.get(`${testinfo.project.use.apiURL}/todos`, {
         headers: {
         accept: "application/xml",
@@ -281,7 +281,7 @@ export class ToDos {
   }
 
   async getTodosJson(token, testinfo) {
-    return test.step("26/GET /todos (200) JSON", async () => {
+    return test.step("26/GET /todos JSON", async () => {
     const response = await this.request.get(`${testinfo.project.use.apiURL}/todos`, {
         headers: {
         accept: "application/json",
@@ -295,7 +295,7 @@ export class ToDos {
     });
   }
   async getTodosAny(token, testinfo) {
-    return test.step("27/GET /todos (200) ANY", async () => {
+    return test.step("27/GET /todos ANY", async () => {
     const response = await this.request.get(`${testinfo.project.use.apiURL}/todos`, {
         headers: {
         accept: "*/*",
@@ -310,7 +310,7 @@ export class ToDos {
   }
 
   async getTodosXmlPref(token, testinfo) {
-    return test.step("28/GET /todos (200) XML pref", async () => {
+    return test.step("28/GET /todos XML pref", async () => {
     const response = await this.request.get(`${testinfo.project.use.apiURL}/todos`, {
         headers: {
         accept: "application/xml, application/json",
@@ -325,7 +325,7 @@ export class ToDos {
   }
 
   async getTodosNoAccept(token, testinfo) {
-    return test.step("29/GET /todos (200) no accept", async () => {
+    return test.step("29/GET /todos no accept", async () => {
     const response = await this.request.get(`${testinfo.project.use.apiURL}/todos`, {
         headers: {
         "x-challenger": token,
@@ -339,7 +339,7 @@ export class ToDos {
   }
 
   async getTodos406(token, testinfo) {
-    return test.step("30/GET /todos (406)", async () => {
+    return test.step("30/GET /todos", async () => {
     const response = await this.request.get(`${testinfo.project.use.apiURL}/todos`, {
         headers: {
         accept: "application/gzip",

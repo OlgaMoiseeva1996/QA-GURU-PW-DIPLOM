@@ -4,3 +4,4 @@ export * from './LogOutPage.js';
 export * from './ArticlePage.js';
 export * from './LikePage.js';
 export * from './TagsPage.js';
+export * from './ProfilePage.js';

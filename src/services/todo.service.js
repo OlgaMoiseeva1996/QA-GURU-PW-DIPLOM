@@ -6,7 +6,7 @@ export class ToDo {
   }
 
   async getTodoNotPlural(token, testinfo) {
-    return test.step("04/GET /todo (404) not plural", async () => {
+    return test.step("4/GET /todo not plural", async () => {
       const response = await this.request.get(`${testinfo.project.use.apiURL}/todo`, {
         headers: {
         "x-challenger": token,

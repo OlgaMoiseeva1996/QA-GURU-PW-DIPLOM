@@ -13,10 +13,19 @@ test.describe('Тесты статей @ui', () => {
         await app.register.register(user);
         await app.article.create(article);
         
-        // Assert - проверка результата
-        await expect(app.article.checkArticleTitleInput).toContainText(article.articleName);
-        await expect(app.article.checkArticleInput).toContainText(article.description);
-        await expect(app.article.checkTagsInput).toContainText(article.tags);
+        // Assert - проверка на странице статьи
+        await expect(app.article.checkArticle).toContainText(article.articleName);
+        await expect(app.article.checkArticle).toContainText(article.description);
+        await expect(app.article.checkArticle).toContainText(article.tags);
+
+        // Act - переход в профиль
+        await app.profile.gotoProfile();
+
+        // Act - переход в профиль
+        await expect(app.article.checkArticle).toContainText(article.shortDescription);
+        await expect(app.article.checkArticle).toContainText(article.articleName);
+        await expect(app.article.checkArticle).toContainText(article.tags);
+
     });
 
     test('Пользователь редактирует статью @ui', async ({ app, testDataUi }) => {
@@ -30,9 +39,19 @@ test.describe('Тесты статей @ui', () => {
         await app.article.create(article);
         await app.article.edit(editarticle);
         
-        // Assert - проверка результата
-        await expect(app.article.checkArticleTitleInput).toContainText(editarticle.articleName);
-        await expect(app.article.checkArticleInput).toContainText(editarticle.description);  
+        // Assert - проверка на странице статьи
+        await expect(app.article.checkArticle).toContainText(editarticle.articleName);
+        await expect(app.article.checkArticle).toContainText(editarticle.description);  
+        await expect(app.article.checkArticle).toContainText(article.tags);
+
+        // Act - переход в профиль
+        await app.profile.gotoProfile();
+
+        // Assert - проверка в профиле
+        await expect(app.article.checkArticle).toContainText(editarticle.articleName);
+        await expect(app.article.checkArticle).toContainText(editarticle.shortDescription);
+        await expect(app.article.checkArticle).toContainText(article.tags);
+
     });
 
     test('Пользователь лайкает статью @ui', async ({ app, testDataUi }) => {
