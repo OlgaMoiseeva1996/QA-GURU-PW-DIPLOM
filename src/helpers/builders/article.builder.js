@@ -47,11 +47,6 @@ export class EditArticleBuilder {
         return this;
     }
     
-    addEditTags() {
-        this.tags = faker.lorem.words(2); 
-        return this;
-    }
-    
     generate() {
         return { ...this };
     }

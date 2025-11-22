@@ -1,11 +1,19 @@
 import { expect } from '@playwright/test';
 import { test } from '../src/fixtures/index';
+import { ArticleBuilder, EditArticleBuilder } from "../src/helpers/builders/article.builder";
 
 test.describe('Тесты статей @ui', () => {
     
     test('Пользователь создает статью @ui', async ({ app, testDataUi }) => {
         // Arrange - подготовка данных
-        const { user, article } = testDataUi;
+        const { user } = testDataUi; 
+
+        const article = new ArticleBuilder()
+        .addArticleName()
+        .addShortDescription()
+        .addDescription()
+        .addTags()
+        .generate();
 
         // Act - выполнение действия
         await app.main.open();
@@ -21,7 +29,7 @@ test.describe('Тесты статей @ui', () => {
         // Act - переход в профиль
         await app.profile.gotoProfile();
 
-        // Act - переход в профиль
+        // Assert - проверка в профиле 
         await expect(app.article.checkArticle).toContainText(article.shortDescription);
         await expect(app.article.checkArticle).toContainText(article.articleName);
         await expect(app.article.checkArticle).toContainText(article.tags);
@@ -30,7 +38,20 @@ test.describe('Тесты статей @ui', () => {
 
     test('Пользователь редактирует статью @ui', async ({ app, testDataUi }) => {
         // Arrange - подготовка данных
-        const { user, article, editarticle } = testDataUi;
+        const { user } = testDataUi;
+
+        const article = new ArticleBuilder()
+        .addArticleName()
+        .addShortDescription()
+        .addDescription()
+        .addTags()
+        .generate();
+
+        const editarticle = new EditArticleBuilder()
+        .addEditArticleName()
+        .addEditShortDescription()
+        .addEditDescription()
+        .generate();
         
         // Act - выполнение действия
         await app.main.open();

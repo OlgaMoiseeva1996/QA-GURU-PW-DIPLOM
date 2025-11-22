@@ -1,7 +1,7 @@
 import { test as base } from "@playwright/test";
 import { App } from "../pages/app.page";
 import { Api } from "../services/api.service";
-import { UserBuilder, ArticleBuilder, EditArticleBuilder } from "../helpers/builders/index";
+import { UserBuilder } from "../helpers/builders/index";
 
 export const test = base.extend({
   app: async ({ page }, use) => {
@@ -20,21 +20,7 @@ export const test = base.extend({
       .addName()
       .addPassword()
       .generate();
-    
-    const article = new ArticleBuilder()
-      .addArticleName()
-      .addShortDescription()
-      .addDescription()
-      .addTags()
-      .generate();
-
-    const editarticle = new EditArticleBuilder()
-      .addEditArticleName()
-      .addEditShortDescription()
-      .addEditDescription()
-      .addEditTags()
-      .generate();
-
-    await use({ user, article, editarticle });
+  
+    await use({ user });
   },
 });
